@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level31FountainOfObjectsExpanded", "Level31FountainOfObjectsExpanded\Level31FountainOfObjectsExpanded.csproj", "{EE07B9A8-1E6E-4758-B7F4-2BF9805B4EEC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE07B9A8-1E6E-4758-B7F4-2BF9805B4EEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE07B9A8-1E6E-4758-B7F4-2BF9805B4EEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE07B9A8-1E6E-4758-B7F4-2BF9805B4EEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE07B9A8-1E6E-4758-B7F4-2BF9805B4EEC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1E44134D-37E4-4256-B647-CACDFBA1F4B1}
+	EndGlobalSection
+EndGlobal
