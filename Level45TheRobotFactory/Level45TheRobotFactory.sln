@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32328.378
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Level45TheRobotFactory", "Level45TheRobotFactory\Level45TheRobotFactory.csproj", "{DEA120EF-6441-4335-AE51-EE1090D6D370}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DEA120EF-6441-4335-AE51-EE1090D6D370}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA120EF-6441-4335-AE51-EE1090D6D370}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA120EF-6441-4335-AE51-EE1090D6D370}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA120EF-6441-4335-AE51-EE1090D6D370}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DA70356B-AFD6-401C-A813-E6E31F138B1F}
+	EndGlobalSection
+EndGlobal
