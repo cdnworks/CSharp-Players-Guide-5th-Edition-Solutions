@@ -1,41 +1,12 @@
 ﻿/* Objectives: 
- * The game needs to be able to represent characters with a name and able to take a turn.
- * 
- * The game should be able to have skeleton characters with the name SKELETON
- * 
- * the game should be able to represent a party with a collection of characters.
- * 
- * The game should be able to run a battle composed of two parties.
- * Heroes and Monsters. A battle needs to run a series of rounds where each character in each party (heroes first) can take a turn.
- * 
- * Before a character takes their turn, the game should report to the user whose turn it is.
- * For example, "It is SKELETON's turn"
- * 
- * The only action the game needs to support at this point is the action of doing nothing. (Skipping a turn)
- * This action is done by displaying text about doing nothing, resting or skipping a turn in the console window.
- * For example, "SKELETON did NOTHING."
- * 
- * The game must run a battle with a single skeleton in both the hero and the monster party. At this point,
- * the two skeletons should do nothing repeatedly. The game might look like the following
- * ``` It is SKELETON's turn...
- * ``` SKELETON did NOTHING.
- * ```
- * ``` IT is SKELETON's turn...
- * ``` SKELETON did NOTHING.
- * 
- * OPTIONAL: Put a blank line between each character's turn to differentiate one turn from another.
- * 
- * OPTIONAL: At this point, the game will run automatically. Consider adding a Thread.Sleep(500);
- * to slow the game down enough to allow the user to see what is happening over time.
+ * Add a True Programmer character
+ * The character will be named by user input
  * 
  */
 
 
 // MAIN
-
-
 BattleGame game = new BattleGame();
-
 game.RunGame();
 
 
@@ -51,8 +22,9 @@ public class BattleGame
 
     public BattleGame()
     {
+
         _heroes = new Party();
-        _heroes.CharacterList.Add(new Skeleton(this));
+        _heroes.CharacterList.Add(new TrueProgrammer(this));
         
         _monsters = new Party();
         _monsters.CharacterList.Add(new Skeleton(this));
@@ -92,56 +64,72 @@ public class Party
 
 
 
-// Abstract class for defining characters. Characters will have a Name, a reference to the gamestate and some Actions it can do that effect the game
-// (thereby effecting other characters in the game)
+// Abstract class for defining characters. Characters will have a Name, a reference to the gamestate and a list of Actions it can do
+// (thereby effecting change in other characters in the game)
 public abstract class Character
 {
     public string Name { get; set; }
     public BattleGame _game;
+
     //collection of character actions, utilizing a keyword associated with the action
     public Dictionary<string, ICharacterAction> CharacterActions { get; set; }
 
-    // DoAction contains a list of commands a derived character class should 'know' how to do, then does the action when selected.
-    public abstract void DoAction(string? command);
-}
-
-
-// SKELETON character
-public class Skeleton : Character
-{
-
-    public Skeleton(BattleGame game) : base()
-    {
-        _game = game;
-        Name = "SKELETON";
-
-        // create list of actions a skeleton can do
-        CharacterActions = new Dictionary<string, ICharacterAction>()
-        {
-            {"skip", new SkipAction() }
-
-        };
-
-
-    }
-
-    public override void DoAction(string? command)
+    // DoAction fires off the action with the associated keyword argument
+    public void DoAction(string? command)
     {
         // null check and check if the action is not in the command dictionary
         // if the command is bad, skip turn
-        if(command == null || CharacterActions.ContainsKey(command) == false )
+        if (command == null || CharacterActions.ContainsKey(command) == false)
         {
             SkipAction skipTurn = new SkipAction();
             skipTurn.Execute(_game, this);
         }
 
-
-
-        // otherwise, do skeleton things
+        // otherwise, do the selected action
         ICharacterAction action = CharacterActions[command];
         action.Execute(_game, this);
     }
 }
+
+
+// Character Classes
+public class Skeleton : Character
+{
+    public Skeleton(BattleGame game) : base()
+    {
+        _game = game;
+        Name = "SKELETON";
+
+        // list of Skeleton's available actions
+        CharacterActions = new Dictionary<string, ICharacterAction>()
+        {
+            {"skip", new SkipAction() }
+        };
+    }
+}
+
+
+public class TrueProgrammer : Character
+{
+    public TrueProgrammer(BattleGame game) : base()
+    {
+        _game = game;
+
+        //Get & set the player's name for the TrueProgrammer
+        Console.WriteLine("What is your name?");
+        Name = Console.ReadLine();
+        if (Name == null || Name == "") Name = "default mcdefaultface";
+        Name = Name.ToUpper();
+
+
+        // list of TrueProgrammer's available actions
+        CharacterActions = new Dictionary<string, ICharacterAction>()
+        {
+            {"skip", new SkipAction() }
+        };
+    }
+}
+
 
 
 
@@ -166,3 +154,4 @@ public class SkipAction : ICharacterAction
         Console.WriteLine($"{self.Name} did NOTHING!");
     }
 }
+
