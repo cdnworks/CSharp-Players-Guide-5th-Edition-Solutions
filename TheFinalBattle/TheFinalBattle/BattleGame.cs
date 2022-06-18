@@ -11,10 +11,10 @@ public class BattleGame
     public BattleGame()
     {
 
-        _heroes = new Party();
+        _heroes = new Party(new ComputerPlayer());
         _heroes.CharacterList.Add(new TrueProgrammer(this));
         
-        _monsters = new Party();
+        _monsters = new Party(new ComputerPlayer());
         _monsters.CharacterList.Add(new Skeleton(this));
     }
 
@@ -32,7 +32,12 @@ public class BattleGame
                     Console.WriteLine();
                     Console.WriteLine($"{character.Name} is taking a turn...");
                     Thread.Sleep(500);
-                    character.DoAction("skip");
+                    // this will just issue a sleep command for now
+                    // Player.SelectAction returns a valid string 'command' to the DoAction method in Character
+                    // which should handle the rest of the action process
+                    // This provides the benefit of being able to randomly (or selectively) issue a legal command from the character's action dictionary
+                    // for computer controlled Players, and input handling for player characters so they dont issue illegal commands
+                    character.DoAction(party.Player.SelectAction(this, character));
                 }
             }
         }
