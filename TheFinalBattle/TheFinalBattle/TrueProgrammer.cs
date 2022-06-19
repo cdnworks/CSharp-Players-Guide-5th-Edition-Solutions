@@ -1,6 +1,8 @@
 ﻿namespace FinalBattle;
 
 // This Character is intended to be the player's character
+// upon creation (before the BattleGame is run) the player names the TrueProgrammer.
+// The player has 25 health
 public class TrueProgrammer : Character
 {
     public TrueProgrammer(BattleGame game) : base()
@@ -12,6 +14,10 @@ public class TrueProgrammer : Character
         Name = Console.ReadLine();
         if (Name == null || Name == "") Name = "default mcdefaultface";
         Name = Name.ToUpper();
+
+        //set health
+        MaxHealth = 25;
+        CurrentHealth = 25;
 
 
         // list of TrueProgrammer's available actions

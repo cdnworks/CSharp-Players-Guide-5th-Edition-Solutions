@@ -7,7 +7,11 @@ public class PunchAttack : AttackAction
     public PunchAttack() : base()
     {
         Name = "PUNCH";
+
+        //Punch is a basic attack, dealing 1 damage
+        Damage = 1;
+
     }
 
-    //do punch things
+
 }

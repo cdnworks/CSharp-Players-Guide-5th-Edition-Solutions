@@ -2,7 +2,6 @@
 
 
 // This class is the Computer controlled player. It should end up having basic decision making (read: random decision making)
-// for now, it just skips turns
 public class ComputerPlayer : IPlayer
 {
     public (string command, Character target) SelectAction(BattleGame game, Character character)

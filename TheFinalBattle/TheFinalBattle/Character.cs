@@ -4,8 +4,11 @@
 // (thereby effecting change in other characters in the game)
 public abstract class Character
 {
-    public string Name { get; set; }
     public BattleGame _game;
+    public string Name { get; set; }
+    public int MaxHealth { get; set; }
+    public int CurrentHealth { get; set; }
+
 
     //collection of character actions, utilizing a keyword associated with the action
     public Dictionary<string, ICharacterAction> CharacterActions { get; set; }
