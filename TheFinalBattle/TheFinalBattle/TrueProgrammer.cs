@@ -17,7 +17,8 @@ public class TrueProgrammer : Character
         // list of TrueProgrammer's available actions
         CharacterActions = new Dictionary<string, ICharacterAction>()
         {
-            {"skip", new SkipAction() }
+            {"skip", new SkipAction() },
+            {"punch", new PunchAttack() }
         };
     }
 }

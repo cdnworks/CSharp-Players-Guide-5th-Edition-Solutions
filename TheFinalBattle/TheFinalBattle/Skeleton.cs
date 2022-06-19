@@ -11,7 +11,8 @@ public class Skeleton : Character
         // list of Skeleton's available actions
         CharacterActions = new Dictionary<string, ICharacterAction>()
         {
-            {"skip", new SkipAction() }
+            {"skip", new SkipAction() },
+            {"bone crunch", new BoneCrunchAttack() }
         };
     }
 }

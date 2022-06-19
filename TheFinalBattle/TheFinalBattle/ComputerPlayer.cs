@@ -7,7 +7,14 @@ public class ComputerPlayer : IPlayer
 {
     public string SelectAction(BattleGame game, Character character)
     {
-        //this is just dummied out and will skip turns
-        return "skip";
+        //get a list of the moves from the character, then issue one at random
+        // the action will target based on how it's called in BattleGame
+        // which is temporary, the target should aslo be selected in a sensible way later on
+        List<string> commandList = new List<string>(character.CharacterActions.Keys);
+
+        Random random = new Random();
+        return commandList[random.Next(commandList.Count)];
+
+
     }
 }

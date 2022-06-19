@@ -3,9 +3,9 @@
 // This character action causes the character to do nothing, effectively skipping their turn.
 public class SkipAction : ICharacterAction
 {
-    public void Execute(BattleGame game, Character self)
+    public void Execute(BattleGame game, Character source, Character target)
     {
-        Console.WriteLine($"{self.Name} did NOTHING!");
+        Console.WriteLine($"{source.Name} did NOTHING!");
     }
 }
 
