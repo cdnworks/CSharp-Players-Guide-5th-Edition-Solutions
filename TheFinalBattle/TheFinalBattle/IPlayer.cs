@@ -5,5 +5,5 @@
 // actions the current character knows how to do
 public interface IPlayer
 {
-    string SelectAction(BattleGame game, Character character);
+    (string command, Character target) SelectAction(BattleGame game, Character character);
 }
