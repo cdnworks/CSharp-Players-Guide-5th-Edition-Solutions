@@ -16,12 +16,17 @@ public class HumanPlayer : IPlayer
 
         string? commandInput;
         Character targetInput;
+        ICharacterAction actionFromDictionary;
 
         //collect a legal command
         while (true)
         {
             commandInput = Console.ReadLine();
-            if (character.CharacterActions.ContainsKey(commandInput)) break;
+            if (character.CharacterActions.ContainsKey(commandInput))
+            {
+                actionFromDictionary = character.CharacterActions[commandInput];
+                break;
+            };
         }
 
         //after picking the command, collect an appropriate target
@@ -38,9 +43,7 @@ public class HumanPlayer : IPlayer
 
 
         //enemy target skills
-        if (commandInput == "punch" ||
-            commandInput == "bone crunch" ||
-            commandInput == "unraveling")
+        if (actionFromDictionary is AttackAction)
         {
             int targetNumber = 1;
             Console.WriteLine("Select a target: ");
