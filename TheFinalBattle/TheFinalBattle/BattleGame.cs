@@ -2,11 +2,21 @@
 
 
 // This is the main game handler class. It is responsible for executing or managing different game state effecting 
-// methods and objects. It should end up tracking the game's win and lose conditions, user input and running results
+// methods and objects. It's primary function is to manage and track all the in game characters, manage turns, allow the players
+// to issue commands and determine if a party has won or lost the battle.
 public class BattleGame
 {
     private Party _heroes;
     private Party _monsters;
+
+    private bool _isGameOver = false;
+
+    // while there is a generic _monsters party, that will hold the party of monsters being currently fought by the hero party
+    // these two parties hold the individual monster parties, which swap out when the game loop breaks, selected from the monsterParties list
+    private Party monsterParty1;
+    private Party monsterParty2;
+
+    private List<Party> monsterParties = new List<Party>();
 
     public BattleGame()
     {
@@ -14,8 +24,20 @@ public class BattleGame
         _heroes = new Party(new ComputerPlayer());
         _heroes.CharacterList.Add(new TrueProgrammer(this));
         
-        _monsters = new Party(new ComputerPlayer());
-        _monsters.CharacterList.Add(new Skeleton(this));
+        monsterParty1 = new Party(new ComputerPlayer());
+        monsterParty1.CharacterList.Add(new Skeleton(this));
+
+        monsterParty2 = new Party(new ComputerPlayer());
+        monsterParty2.CharacterList.Add(new Skeleton(this));
+        monsterParty2.CharacterList.Add(new Skeleton(this));
+
+        monsterParties.Add(monsterParty1);
+        monsterParties.Add(monsterParty2);
+
+
+
+        //set the first party to fight
+        _monsters = monsterParties[0];
     }
 
 
@@ -23,7 +45,9 @@ public class BattleGame
 
     public void RunGame()
     {
-        while(!IsOver())
+
+        //run until the game is over (e.g. all monster parties are defeated, or the hero party is defeated)
+        while(!_isGameOver)
         {
             foreach (Party party in new[] { _heroes, _monsters })
             {
@@ -32,11 +56,7 @@ public class BattleGame
                     Console.WriteLine();
                     Console.WriteLine($"{character.Name} is taking a turn...");
                     Thread.Sleep(500);
-                    // this will just issue a sleep command for now
-                    // Player.SelectAction returns a valid string 'command' to the DoAction method in Character
-                    // which should handle the rest of the action process
-                    // This provides the benefit of being able to randomly (or selectively) issue a legal command from the character's action dictionary
-                    // for computer controlled Players, and input handling for player characters so they dont issue illegal commands
+                    // Player.SelectAction returns a valid string 'command', and an appropriate target to the DoAction method in Character
 
                     //SelectAction returns a tuple so we need to deconstruct it to use it
                     var selectedAction = party.Player.SelectAction(this, character);
@@ -46,16 +66,39 @@ public class BattleGame
                     character.DoAction(actionString, actionTarget);
 
 
-                    //check if a party has been defeated, if it has, end the game
-                    if (IsOver()) break;
+                    // Win/Loss state checks
+
+                    if (_heroes.CharacterList.Count == 0)
+                    {
+                        //heroes lost, end the game.
+                        _isGameOver = true;
+                        break;
+                    }
 
 
-                    
-
+                    if (_monsters.CharacterList.Count == 0)
+                    {
+                        // if the monsterParties count is 2 or more, that means theres a party left to fight,
+                        // remove the first party, doing so will shift all other monster parties forward 1 index
+                        // assign _monsters to the new monsterParties[0]
+                        // the battle continues as normal
+                        if (monsterParties.Count > 1)
+                        {
+                            monsterParties.RemoveAt(0);
+                            _monsters = monsterParties[0];
+                        }
+                        
+                        // no extra monster parties to fight, the game is over!
+                        else
+                        {
+                            _isGameOver = true;
+                            break;
+                        }
+                    }
 
                 }
 
-                if (IsOver()) break;
+                if (_isGameOver) break;
             }
         }
 
@@ -72,8 +115,6 @@ public class BattleGame
 
     // Utility methods
 
-    // checks if a party has been defeated (meaning no member is alive/present), signaling the game is over
-    public bool IsOver() => _heroes.CharacterList.Count == 0 || _monsters.CharacterList.Count == 0;
 
     //gets the party based on the current character's relation to it i.e. a skeleton's enemy party is the hero party, and it's party is the monster party
     public Party GetEnemyPartyFor(Character character) => _heroes.CharacterList.Contains(character) ? _monsters : _heroes;
