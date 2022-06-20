@@ -15,13 +15,14 @@ public class BattleGame
     // these two parties hold the individual monster parties, which swap out when the game loop breaks, selected from the monsterParties list
     private Party monsterParty1;
     private Party monsterParty2;
+    private Party monsterParty3;
 
     private List<Party> monsterParties = new List<Party>();
 
     public BattleGame()
     {
 
-        _heroes = new Party(new ComputerPlayer());
+        _heroes = new Party(new HumanPlayer());
         _heroes.CharacterList.Add(new TrueProgrammer(this));
         
         monsterParty1 = new Party(new ComputerPlayer());
@@ -31,8 +32,12 @@ public class BattleGame
         monsterParty2.CharacterList.Add(new Skeleton(this));
         monsterParty2.CharacterList.Add(new Skeleton(this));
 
+        monsterParty3 = new Party(new ComputerPlayer());
+        monsterParty3.CharacterList.Add(new UncodedOne(this));
+
         monsterParties.Add(monsterParty1);
         monsterParties.Add(monsterParty2);
+        monsterParties.Add(monsterParty3);
 
 
 

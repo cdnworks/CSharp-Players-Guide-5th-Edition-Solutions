@@ -33,6 +33,7 @@ public class ComputerPlayer : IPlayer
         //enemy target skills
         if (command == "punch") return ("punch", randomEnemy);
         if (command == "bone crunch") return ("bone crunch", randomEnemy);
+        if (command == "unraveling") return ("unraveling", randomEnemy);
 
         //else case
         return ("skip", character);
